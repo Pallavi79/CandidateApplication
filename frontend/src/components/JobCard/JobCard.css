@@ -1,0 +1,40 @@
+.job-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .job-logo {
+    flex: 0 0 auto;
+    margin-right: 15px; 
+  }
+  
+  .company-logo {
+    width: 100px; 
+    height: auto; 
+  }
+  
+  .job-info {
+    flex: 1; 
+  }
+  
+  .job-title {
+    margin-top: 0; 
+  }
+  
+  .job-role,
+  .location {
+    margin: 5px 0; 
+  }
+  

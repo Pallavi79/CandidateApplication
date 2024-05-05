@@ -1,0 +1,23 @@
+.job-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  
+  @media (max-width: 768px) {
+    .job-list {
+      grid-template-columns: repeat(2, 1fr);
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .job-list {
+      grid-template-columns: 1fr;
+      padding-left: 2%;
+      padding-right: 2%;
+    }
+  }
