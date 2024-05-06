@@ -27,17 +27,24 @@ const JobCard = ({ job }) => {
             <p><strong>Job Role:</strong> {job.jobRole}</p>
             <p><strong>Location:</strong> {job.location}</p>
           </div>
-
         </div>
         <div>
-          <p><strong>Max Experience:</strong> {job.maxExp}</p>
-          <p><strong>Min Experience:</strong> {job.minExp}</p>
+          {job.maxExp && <p><strong>Max Experience:</strong> {job.maxExp}</p>}
+          {job.minExp && <p><strong>Min Experience:</strong> {job.minExp}</p>}
           <p className="job-description">
             <strong>Job Description:</strong> {expanded ? job.jobDetailsFromCompany : truncateDescription(job.jobDetailsFromCompany, 100)}
             {!expanded && <a href="#" onClick={toggleDescription}>Read more</a>}
           </p>
-          <p><strong>Salary:</strong> {job.minJdSalary && job.maxJdSalary ? `${job.minJdSalary} - ${job.maxJdSalary} ${job.salaryCurrencyCode}` : "Salary not specified"}</p>
-          <p><strong>Job Link:</strong> <a href={job.jdLink}>{job.jdLink}</a></p>
+          {job.minJdSalary && job.maxJdSalary ? (
+            <p><strong>Salary:</strong> {`${job.minJdSalary} - ${job.maxJdSalary} ${job.salaryCurrencyCode}`}</p>
+          ) : (
+            <p><strong>Salary:</strong> Not specified</p>
+          )}
+          {job.jdLink ? (
+            <p><strong>Job Link:</strong> <a href={job.jdLink}>{job.jdLink}</a></p>
+          ) : (
+            <p><strong>Job Link:</strong> Not specified</p>
+          )}
         </div>
       </div>
       <div className="job-actions">

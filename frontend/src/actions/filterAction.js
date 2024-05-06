@@ -1,5 +1,3 @@
-// filterActions.js
-
 // Action types
 export const UPDATE_FILTERS = 'UPDATE_FILTERS';
 

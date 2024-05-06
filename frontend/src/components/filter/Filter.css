@@ -1,0 +1,36 @@
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .filters form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+    width: 100%;
+  }
+  
+  .filters input,
+  .filters button {
+    padding: 10px;
+    margin: 5px;
+  }
+  
+  .filters input {
+    flex: 1; /* Take up remaining space */
+  }
+  
+  .filters button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .filters button:hover {
+    background-color: #0056b3;
+  }
+  

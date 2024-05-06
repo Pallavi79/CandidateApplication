@@ -1,16 +1,46 @@
-import JobCard from "../JobCard/JobCard";
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchJobs } from '../../actions/jobAction';
+import JobCard from '../JobCard/JobCard';
 import './JobList.css';
 
-const JobList = ({ jobs}) => {
-  const filters = useSelector(state => state.jobs.filters);
-  const filteredJobs = jobs.filter(job => {
-    // Check if each job matches the filter criteria
-    let matchesAllFilters = true;
+const JobList = () => {
+  const dispatch = useDispatch();
+  const { jobs, filters, loading, error, page, reachedEnd } = useSelector(state => state.jobs);
+  const jobListRef = useRef();
 
-    // Filter each field only if it's present in the filters
-     // Filter each field only if it's present in the filters
-     if (filters.companyName !== '') {
+  //Handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight &&
+        !loading &&
+        !reachedEnd
+      ) {
+        // Calculate new offset based on the current number of jobs
+        const newOffset = jobs.length;
+        dispatch(fetchJobs(10, newOffset)); // Fetch 10 more jobs starting from the new offset
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [dispatch, jobs.length, loading, reachedEnd]);
+
+  //Initial Job load
+  useEffect(() => {
+    if (!jobs.length) {
+      dispatch(fetchJobs(10, 0)); // Fetch initial page of jobs
+    }
+  }, [dispatch, jobs.length]);
+
+  const filteredJobs = jobs.filter(job => {
+    // Check if the job matches the filter criteria
+    let matchesAllFilters = true;
+    if (filters.companyName !== '') {
       matchesAllFilters = matchesAllFilters && job.companyName.toLowerCase().includes(filters.companyName.toLowerCase());
     }
     if (filters.location !== '') {
@@ -31,15 +61,18 @@ const JobList = ({ jobs}) => {
     if (filters.minBasePay !== '') {
       matchesAllFilters = matchesAllFilters && job.minJdSalary >= parseFloat(filters.minBasePay);
     }
+
     return matchesAllFilters;
   });
 
-  console.log('these arefiltered jobs',filteredJobs);
   return (
-    <div className="job-list">
-      {filteredJobs.map((job) => (
-        <JobCard key={job.jdUid} job={job} />
+    <div className="job-list" ref={jobListRef}>
+      {filteredJobs.map((job, index) => (
+        <JobCard key={`${job.jdUid}-${job.companyName}-${job.location}-${index}`} job={job} />
       ))}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {reachedEnd && <p>No more jobs to load</p>}
     </div>
   );
 };

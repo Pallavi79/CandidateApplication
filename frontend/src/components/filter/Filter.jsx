@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchJobs } from '../../actions/jobAction';
 import { updateFilters } from '../../actions/filterAction';
-
+import './Filter.css'
 const Filters = () => {
   const dispatch = useDispatch();
   const [filters, setFilters] = useState({
