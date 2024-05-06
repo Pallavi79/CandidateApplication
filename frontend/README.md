@@ -1,4 +1,4 @@
 A react candidate application platform that allows users to view job listings.
-Go to frontend folder
+Go to frontend folder and run the command
 ```
-Run npm run dev
+npm run dev
